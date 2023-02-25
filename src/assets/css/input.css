@@ -1,0 +1,41 @@
+.input-container {
+  display: flex;
+}
+
+.input-container i {
+    border-right: none;
+    border-left: #ffffff;
+    border-top: #ffffff;
+    border-bottom: #ffffff;
+    border-left-style: groove;
+    border-top-style: groove;
+    border-bottom-style: groove;
+    border-left-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+}
+
+.icon {
+  background: #f7f7f7;
+  color: black;
+  min-width: 30px;
+  text-align: center;
+  padding-top: 3px;
+}
+
+.input-field {
+  background: #f7f7f7;
+  outline: none;
+  width: 100%;
+  height: 30px;
+  border-left: none;
+  border-right: #ffffff;
+  border-top: #ffffff;
+  border-bottom: #ffffff;
+  border-right-style: groove;
+  border-top-style: groove;
+  border-bottom-style: groove;
+  border-right-width: 1px;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+}
