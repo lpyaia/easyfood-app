@@ -23,6 +23,8 @@ import Home from "./pages/home/home";
 import Logout from "./pages/logout/logout";
 import useAppRefresh from "./components/app/useAppRefreshHook";
 import localStorageHelper from "./utils/localStorageHelper";
+import { Menu } from "./pages/menu/menu";
+import { Checkout } from "./pages/checkout/checkout";
 
 function App() {
     // const { userInfo, setUserInfo } = useToken();
@@ -57,6 +59,8 @@ function App() {
                 <Route path="/sorry" element={<InternalServerError />} />
                 <Route path="/logout" element={<Logout />} />
                 <Route exact path="/" element={<DefaultRoutes component={Home} />} />
+                <Route exact path="/menu" element={<DefaultRoutes component={Menu} />} />
+                <Route exact path="/checkout" element={<DefaultRoutes component={Checkout} />} />
             </Routes>
         </div>
     );

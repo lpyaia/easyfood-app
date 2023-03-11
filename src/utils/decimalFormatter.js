@@ -1,3 +1,7 @@
 export const decimalFormatter = (value, places) => {
-    return value.toFixed(places).toString().replace(".", ",");
+    if (value) {
+        return value.toFixed(places).toString().replace(".", ",");
+    }
+
+    return "0,00";
 };
