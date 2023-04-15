@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+.row {
+  margin-top: 5px;
+}
+
+.card {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.btn {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.form-label {
+  margin-top: 10px;
+  margin-bottom: 0 !important;
+}

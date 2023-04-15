@@ -127,7 +127,7 @@ export const Menu = () => {
 
                     <Col md={2}>
                         <Button className="w-100" variant="success" onClick={() => checkout()} disabled={total <= 0}>
-                            Método de Pagamento
+                            Pagar
                         </Button>
                     </Col>
                 </Row>

@@ -3,15 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useStore } from "react-hookstore";
-import { toast } from "react-toastify";
 import authService from "../../services/authService/authService";
-import localStorageHelper from "../../utils/localStorageHelper";
 
 const Register = () => {
     const [hasPasswordValidationError, setHasPasswordValidationError] = useState(false);
     const [validated, setValidated] = useState(false);
     const [passwordValidationErrorMsg, setPasswordValidationErrorMsg] = useState("");
     const [username, setUsername] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [birthDate, setBirthDate] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -33,6 +34,9 @@ const Register = () => {
                     username,
                     email,
                     password,
+                    firstName,
+                    lastName,
+                    birthDate,
                 });
 
                 window.location.href = "/";
@@ -44,7 +48,7 @@ const Register = () => {
         }
     }
 
-    function passwordConfirmHasError() {
+    const passwordConfirmHasError = () => {
         const hasPasswordValidationError = password !== confirmPassword;
         let passwordValidationErrorMsg = "";
 
@@ -56,7 +60,16 @@ const Register = () => {
         setPasswordValidationErrorMsg(passwordValidationErrorMsg);
 
         return hasPasswordValidationError;
-    }
+    };
+
+    const isValidName = (name) => {
+        if (!name) return true;
+
+        const nameRegex =
+            /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
+
+        return name.match(nameRegex);
+    };
 
     return (
         <div className="row" style={{ width: "100%" }}>
@@ -150,6 +163,67 @@ const Register = () => {
 
                                 <Form validated={validated} onSubmit={handleSubmit.bind(this)} noValidate>
                                     <Form.Group className="mb-3">
+                                        <Form.Label htmlFor="firstName" className="form-label">
+                                            Nome
+                                        </Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            className="form-control"
+                                            id="firstName"
+                                            name="firstName"
+                                            placeholder="Insira o seu nome"
+                                            autoFocus
+                                            value={firstName}
+                                            onChange={(e) => setFirstName(e.target.value)}
+                                            maxLength={100}
+                                            minLength={3}
+                                            isInvalid={!isValidName(firstName)}
+                                            required
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            Por favor, preencha o seu nome corretamente
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                    <Form.Group className="mb-3">
+                                        <Form.Label htmlFor="lastName" className="form-label">
+                                            Sobrenome
+                                        </Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            className="form-control"
+                                            id="lastName"
+                                            name="lasttName"
+                                            placeholder="Insira o seu sobrenome"
+                                            value={lastName}
+                                            onChange={(e) => setLastName(e.target.value)}
+                                            maxLength={100}
+                                            minLength={3}
+                                            isInvalid={!isValidName(lastName)}
+                                            required
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            Por favor, preencha o seu sobrenome corretamente
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                    <Form.Group className="mb-3">
+                                        <Form.Label htmlFor="lastName" className="form-label">
+                                            Data de nascimento
+                                        </Form.Label>
+                                        <Form.Control
+                                            type="date"
+                                            className="form-control"
+                                            id="birthDate"
+                                            name="birthDate"
+                                            placeholder="Insira a sua data de nascimento"
+                                            value={birthDate}
+                                            onChange={(e) => setBirthDate(e.target.value)}
+                                            required
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            Por favor, preencha a sua data de nascimento
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                    <Form.Group className="mb-3">
                                         <Form.Label htmlFor="username" className="form-label">
                                             Usuário
                                         </Form.Label>
@@ -159,10 +233,9 @@ const Register = () => {
                                             id="username"
                                             name="username"
                                             placeholder="Insira o seu usuário"
-                                            autoFocus
                                             value={username}
                                             onChange={(e) => setUsername(e.target.value)}
-                                            maxLength={256}
+                                            maxLength={100}
                                             minLength={3}
                                             required
                                         />
@@ -183,6 +256,7 @@ const Register = () => {
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
                                             maxLength={256}
+                                            minLength={3}
                                             required
                                         />
                                         <Form.Control.Feedback type="invalid">
