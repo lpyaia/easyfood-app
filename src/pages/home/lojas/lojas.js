@@ -3,7 +3,7 @@ import Loja from "./loja/loja";
 import Row from "react-bootstrap/Row";
 import Pagination from "react-bootstrap/Pagination";
 import { useEffect } from "react";
-import partnersService from "../../../services/authService/merchantService";
+import partnersService from "../../../services/merchantService";
 
 const Lojas = () => {
     const [data, setData] = useState();

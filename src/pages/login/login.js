@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { useStore } from "react-hookstore";
-import authService from "../../services/authService/authService";
+import authService from "../../services/authService";
 import localStorageHelper from "../../utils/localStorageHelper";
 
 const Login = () => {

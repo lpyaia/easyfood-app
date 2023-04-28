@@ -1,5 +1,5 @@
-import identityApi from "../../utils/identityApi";
-import localStorageHelper from "../../utils/localStorageHelper";
+import identityApi from "../utils/identityApi";
+import localStorageHelper from "../utils/localStorageHelper";
 
 const authService = () => {
     const login = async (usuario) => {
@@ -16,6 +16,7 @@ const authService = () => {
         const userInfo = {
             accessToken: response.data.accessToken,
             claims: response.data.userToken.claims,
+            customerId: response.data.userToken.id,
         };
 
         localStorageHelper.setUserInfo(userInfo);

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useStore } from "react-hookstore";
-import authService from "../../services/authService/authService";
+import authService from "../../services/authService";
 
 const Register = () => {
     const [hasPasswordValidationError, setHasPasswordValidationError] = useState(false);

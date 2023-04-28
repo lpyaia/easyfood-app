@@ -11,24 +11,21 @@ import React from "react";
 import { ToastContainer } from "react-toastify";
 import Spinner from "./components/app/spinner";
 import ScrollToTop from "./components/app/scrollToTop";
-import RoleAccess from "./enums/roleEnum";
 import Forbidden from "./pages/forbidden/Forbidden";
 import InternalServerError from "./pages/internal-server-error/InternalServerError";
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/login/login";
 import Register from "./pages/register/register";
-import useToken from "./components/app/userInfoHook";
 import DefaultRoutes from "./components/app/defaultRoutes";
 import Home from "./pages/home/home";
 import Logout from "./pages/logout/logout";
-import useAppRefresh from "./components/app/useAppRefreshHook";
 import localStorageHelper from "./utils/localStorageHelper";
 import { Menu } from "./pages/menu/menu";
 import { Checkout } from "./pages/checkout/checkout";
 
+export const UserInfoContext = React.createContext();
+
 function App() {
-    // const { userInfo, setUserInfo } = useToken();
-    const { appRefreshFlag, setAppRefresh } = useAppRefresh();
     const userInfoToken = localStorageHelper.getUserInfo();
 
     if (!userInfoToken?.accessToken) {
@@ -49,19 +46,21 @@ function App() {
 
     return (
         <div className="App">
-            <ScrollToTop />
-            <ToastContainer theme="colored" />
-            <Spinner />
-            <Routes>
-                <Route path="/login" element={<DefaultRoutes component={Home} />} />
-                <Route path="/register" element={<DefaultRoutes component={Home} />} />
-                <Route path="/forbidden" element={<Forbidden />} />
-                <Route path="/sorry" element={<InternalServerError />} />
-                <Route path="/logout" element={<Logout />} />
-                <Route exact path="/" element={<DefaultRoutes component={Home} />} />
-                <Route exact path="/menu" element={<DefaultRoutes component={Menu} />} />
-                <Route exact path="/checkout" element={<DefaultRoutes component={Checkout} />} />
-            </Routes>
+            <UserInfoContext.Provider value={userInfoToken.userToken}>
+                <ScrollToTop />
+                <ToastContainer theme="colored" />
+                <Spinner />
+                <Routes>
+                    <Route path="/login" element={<DefaultRoutes component={Home} />} />
+                    <Route path="/register" element={<DefaultRoutes component={Home} />} />
+                    <Route path="/forbidden" element={<Forbidden />} />
+                    <Route path="/sorry" element={<InternalServerError />} />
+                    <Route path="/logout" element={<Logout />} />
+                    <Route exact path="/" element={<DefaultRoutes component={Home} />} />
+                    <Route exact path="/menu" element={<DefaultRoutes component={Menu} />} />
+                    <Route exact path="/checkout" element={<DefaultRoutes component={Checkout} />} />
+                </Routes>
+            </UserInfoContext.Provider>
         </div>
     );
 }

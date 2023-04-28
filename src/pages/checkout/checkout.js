@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Button, Card, Col, Container, ListGroup, Modal, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Modal, Row } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { decimalFormatter } from "../../utils/decimalFormatter";
 import { CheckoutItem } from "./checkout-item/checkout-item";
 import { useNavigate } from "react-router-dom";
 import { Payment } from "../payment/payment";
+import { UserInfoContext } from "../../App";
 
 export const Checkout = () => {
     const location = useLocation();
@@ -14,6 +15,7 @@ export const Checkout = () => {
     const [checkoutOrder, setCheckoutOrder] = useState(order);
     const [isPaymentsVisible, setIsPaymentsVisible] = useState(false);
     const navigate = useNavigate();
+    const userInfo = React.useContext(UserInfoContext);
 
     useEffect(() => {
         console.log(checkoutOrder);
@@ -88,17 +90,12 @@ export const Checkout = () => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col className="justify-content-start" md={6} style={{ display: "flex" }}>
+                    <Col className="justify-content-start" md={8} style={{ display: "flex" }}>
                         <h2>Total: R$ {decimalFormatter(checkoutOrder?.total, 2)}</h2>
                     </Col>
-                    <Col>
+                    <Col md={`4`}>
                         <Button className="w-100" variant="secondary" onClick={() => back()}>
                             Voltar
-                        </Button>
-                    </Col>
-                    <Col>
-                        <Button className="w-100" variant="success">
-                            Método de Pagamento
                         </Button>
                     </Col>
                 </Row>
@@ -108,7 +105,10 @@ export const Checkout = () => {
                     <Modal.Title id="contained-modal-title-vcenter">Selecione o seu cartão de crédito</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Payment onSelectCreditCard={(id) => handleCreditCardSelection(id)}></Payment>
+                    <Payment
+                        onSelectCreditCard={(id) => handleCreditCardSelection(id)}
+                        customerId={userInfo.id}
+                    ></Payment>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={() => closeModal()}>Fechar</Button>

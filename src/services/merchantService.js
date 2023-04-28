@@ -1,4 +1,4 @@
-import applicationApi from "../../utils/applicationApi";
+import applicationApi from "../utils/applicationApi";
 
 const partnerService = () => {
     const base = "partners";
