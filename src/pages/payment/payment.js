@@ -24,7 +24,10 @@ export const Payment = ({ onSelectCreditCard, customerId }) => {
     }, []);
 
     const handleCardSelection = (id) => {
-        onSelectCreditCard(id);
+        const creditCard = paymentsAvailable.find((x) => x.creditCardId === id);
+
+        setSelectedCreditCardId(id);
+        onSelectCreditCard(creditCard);
     };
 
     async function fetchData(customerId) {

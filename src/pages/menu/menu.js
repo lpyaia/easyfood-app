@@ -1,9 +1,10 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { decimalFormatter } from "../../utils/decimalFormatter";
 import { MenuItem } from "./menu-item/menu-item";
+import partnersService from "../../services/merchantService";
 
 export const Menu = () => {
     const navigate = useNavigate();
@@ -12,44 +13,42 @@ export const Menu = () => {
     const [total, setTotal] = useState(0);
     const [reset, setReset] = useState(0);
     const [totalItems, setTotalItems] = useState({});
-    const [data, setData] = useState([
-        {
-            id: "8139feef-4071-4a50-8604-851e04cfe157",
-            price: 5.5,
-            name: "McLanche Infeliz",
-            description: "bla, bla, bla, bla, bla, bla",
-        },
-        {
-            id: "05ca37d0-b843-43c8-96c4-d388153050d9",
-            price: 10,
-            name: "Mini Tasty",
-            description: "bla, bla, bla, bla, bla, bla",
-        },
-        {
-            id: "008a943a-8324-46da-abb4-1c80a6d717a4",
-            price: 2.89,
-            name: "Mini Mc",
-            description: "bla, bla, bla, bla, bla, bla",
-        },
-        {
-            id: "47872db9-8650-46f8-a455-bb0ccde6cc0b",
-            price: 7.99,
-            name: "Uaupper",
-            description: "bla, bla, bla, bla, bla, bla",
-        },
-        {
-            id: "68a957e8-ee45-4ba9-8ce5-4b5a4505928a",
-            price: 5,
-            name: "X-Podrão",
-            description: "bla, bla, bla, bla, bla, bla",
-        },
-    ]);
+    const [data, setData] = useState([]);
 
     useEffect(() => {
-        const id = searchParams.get("id");
-        setLojaId(id);
-        clear();
+        const lojaId = searchParams.get("id");
+
+        setLojaId(lojaId);
+        fetchData(lojaId);
     }, []);
+
+    const fetchData = async (lojaId) => {
+        const result = await partnersService.getPartnerMenu(lojaId);
+
+        const items = [];
+
+        result.data.forEach((e) => {
+            items.push({
+                id: e.id,
+                price: e.price,
+                quantity: 0,
+                description: e.description,
+                name: e.name,
+                image: e.image,
+            });
+        });
+
+        setTotalItems(items);
+        setTotal(0);
+        setReset(reset + 1);
+
+        const auxData = [...result.data];
+        setData([]);
+
+        setTimeout(() => {
+            setData(auxData);
+        }, 5);
+    };
 
     const onChangedItem = (item) => {
         const changedItem = totalItems.find((x) => x.id === item.id);
@@ -78,30 +77,7 @@ export const Menu = () => {
         navigate("/checkout", { state: { order } });
     };
 
-    const clear = () => {
-        const items = [];
-
-        data.forEach((e) => {
-            items.push({
-                id: e.id,
-                price: e.price,
-                quantity: 0,
-                description: e.description,
-                name: e.name,
-            });
-        });
-
-        setTotalItems(items);
-        setTotal(0);
-        setReset(reset + 1);
-
-        const auxData = [...data];
-        setData([]);
-
-        setTimeout(() => {
-            setData(auxData);
-        }, 5);
-    };
+    const clear = () => {};
 
     return (
         <>

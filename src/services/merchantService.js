@@ -7,7 +7,11 @@ const partnerService = () => {
         return await applicationApi.get(`${base}?page=${page}`);
     };
 
-    return { getPartnersPaginated: getPartnersPaginated };
+    const getPartnerMenu = async (partnerId) => {
+        return await applicationApi.get(`${base}/${partnerId}/menu`);
+    };
+
+    return { getPartnersPaginated, getPartnerMenu };
 };
 
 export default partnerService();

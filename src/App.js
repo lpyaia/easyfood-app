@@ -22,6 +22,7 @@ import Logout from "./pages/logout/logout";
 import localStorageHelper from "./utils/localStorageHelper";
 import { Menu } from "./pages/menu/menu";
 import { Checkout } from "./pages/checkout/checkout";
+import { CheckoutFinish } from "./pages/checkout/checkout-finish";
 
 export const UserInfoContext = React.createContext();
 
@@ -59,6 +60,7 @@ function App() {
                     <Route exact path="/" element={<DefaultRoutes component={Home} />} />
                     <Route exact path="/menu" element={<DefaultRoutes component={Menu} />} />
                     <Route exact path="/checkout" element={<DefaultRoutes component={Checkout} />} />
+                    <Route exact path="/checkout-finish" element={<DefaultRoutes component={CheckoutFinish} />} />
                 </Routes>
             </UserInfoContext.Provider>
         </div>

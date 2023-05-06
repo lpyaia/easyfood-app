@@ -9,11 +9,11 @@ export const CheckoutItem = ({ item, onUpdate }) => {
             <Row>
                 <Col md={2} style={{ padding: "0" }}>
                     <img
-                        src="./lanche.jpg"
+                        src={item.image}
                         alt=""
                         className="rounded-start rounded-end justify-content-start"
-                        height="100%"
-                        width="100%"
+                        height="156px"
+                        width="128px"
                         style={{ cursor: "pointer" }}
                         onClick={() => {}}
                     />
