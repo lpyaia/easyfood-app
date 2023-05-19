@@ -2,7 +2,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/input.css";
-import "./assets/css/header.css";
+import "./pages/header/header.css";
 import "./assets/css/icon.css";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -52,15 +52,19 @@ function App() {
                 <ToastContainer theme="colored" />
                 <Spinner />
                 <Routes>
-                    <Route path="/login" element={<DefaultRoutes component={Home} />} />
-                    <Route path="/register" element={<DefaultRoutes component={Home} />} />
+                    <Route path="/login" element={<DefaultRoutes search={true} component={Home} />} />
+                    <Route path="/register" element={<DefaultRoutes search={true} component={Home} />} />
                     <Route path="/forbidden" element={<Forbidden />} />
                     <Route path="/sorry" element={<InternalServerError />} />
                     <Route path="/logout" element={<Logout />} />
-                    <Route exact path="/" element={<DefaultRoutes component={Home} />} />
-                    <Route exact path="/menu" element={<DefaultRoutes component={Menu} />} />
-                    <Route exact path="/checkout" element={<DefaultRoutes component={Checkout} />} />
-                    <Route exact path="/checkout-finish" element={<DefaultRoutes component={CheckoutFinish} />} />
+                    <Route exact path="/" element={<DefaultRoutes search={true} component={Home} />} />
+                    <Route exact path="/menu" element={<DefaultRoutes search={false} component={Menu} />} />
+                    <Route exact path="/checkout" element={<DefaultRoutes search={false} component={Checkout} />} />
+                    <Route
+                        exact
+                        path="/checkout-finish"
+                        element={<DefaultRoutes search={false} component={CheckoutFinish} />}
+                    />
                 </Routes>
             </UserInfoContext.Provider>
         </div>

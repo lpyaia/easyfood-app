@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import Header from "../../pages/header/header";
 
-const DefaultRoutes = ({ component: Component, props }) => {
+const DefaultRoutes = ({ search, component: Component, props }) => {
     return (
         <div className="layout-wrapper layout-content-navbar">
             <div className="layout-container">
                 <div className="layout-page">
-                    <Header></Header>
+                    <Header searchEnabled={search}></Header>
                     <Component {...props} />
                 </div>
             </div>

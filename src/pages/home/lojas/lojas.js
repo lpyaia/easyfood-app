@@ -5,17 +5,21 @@ import Pagination from "react-bootstrap/Pagination";
 import { useEffect } from "react";
 import partnersService from "../../../services/merchantService";
 
-const Lojas = () => {
+const Lojas = ({ searchQuery, companyTypeQuery }) => {
     const [data, setData] = useState();
     const [totalPages, setTotalPages] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
+    const [search, setSearch] = useState(searchQuery);
+    const [companyType, setCompanyType] = useState(companyTypeQuery);
 
     useEffect(() => {
-        fetchData();
-    }, []);
+        setSearch(searchQuery);
+        setCompanyType(companyTypeQuery);
+        fetchData(0, searchQuery, companyTypeQuery);
+    }, [searchQuery, companyTypeQuery]);
 
-    async function fetchData(page = 0) {
-        const result = await partnersService.getPartnersPaginated(page);
+    async function fetchData(page = 0, search, companyType) {
+        const result = await partnersService.getPartnersPaginated(page, search, companyType);
         if (result?.data) {
             setData(result.data);
             setTotalPages(result.totalPages);
@@ -28,7 +32,7 @@ const Lojas = () => {
 
         for (let i = 0; i < totalPages; i++) {
             items.push(
-                <Pagination.Item key={i} active={i === currentPage} onClick={() => fetchData(i)}>
+                <Pagination.Item key={i} active={i === currentPage} onClick={() => fetchData(i, search, companyType)}>
                     {i + 1}
                 </Pagination.Item>
             );
