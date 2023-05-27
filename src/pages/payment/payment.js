@@ -122,7 +122,9 @@ export const Payment = ({ onSelectCreditCard, customerId }) => {
                                     <Form onSubmit={handleSubmit.bind(this)} validated={validated} noValidate>
                                         <Row>
                                             <Col>
-                                                <Form.Label>Número Cartão de Crédito</Form.Label>
+                                                <Form.Label>
+                                                    Número Cartão de Crédito (mastercard, visa, american express)
+                                                </Form.Label>
                                                 <FormControl
                                                     type="text"
                                                     as={InputMask}
