@@ -19,6 +19,7 @@ const configureAxios = () => {
                 return response.data;
             },
             function (error) {
+                debugger;
                 if (error?.response) {
                     if (error.response.status === 400) {
                         toast.error(error.response.data.detail);

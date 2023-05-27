@@ -1,16 +1,16 @@
 import React from "react";
 import Lojas from "./lojas/lojas";
 import Container from "react-bootstrap/esm/Container";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router";
 
 function Home() {
     const location = useLocation();
     const { state } = location;
-    const { search, companyType } = state || {};
+    const { search, companyType, tags } = state || {};
 
     return (
         <Container>
-            <Lojas searchQuery={search} companyTypeQuery={companyType}></Lojas>
+            <Lojas searchQuery={search} companyTypeQuery={companyType} tagsQuery={tags}></Lojas>
         </Container>
     );
 }
